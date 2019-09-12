@@ -1,5 +1,7 @@
 <template lang='html'>
-  <li>{{beer.name}}</li>
+  <li v-on:click="handleClick">{{beer.name}}
+    <button v-on:click="markAsFavourite()">Add to favourites</button>
+  </li>
 </template>
 
 <script>
@@ -8,9 +10,14 @@ import { eventBus } from '../main.js'
 export default {
     name: 'list-item',
     props: ['beer'],
-    methods: {}
-    
-
+    methods: {
+        handleClick() {
+            eventBus.$emit('beer-selected', this.beer)
+        },
+        markAsFavourite() {
+            eventBus.$emit('favourite-beer', this.beer)
+        }
+    }
 }
 </script>
 
